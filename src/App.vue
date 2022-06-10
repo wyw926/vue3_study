@@ -1,35 +1,27 @@
 <template>
-<!-- Vue2中的html模板中必须要有一对根标签,Vue3组件的html模板中可以没有根标签 -->
-  <img alt="Vue logo" src="./assets/logo.png">
-  <!-- 使用这个子级组件 -->
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <h2>App父级组件</h2>
+  <h3>msg:{{ msg }}</h3>
+  <button @click="msg += '==='">更新数据</button>
+  <hr />
+  <Child :msg="msg" />
 </template>
-
 <script lang="ts">
-// 这里可以使用ts的代码
-
-// defineComponent函数,目的是定义一个组件,内部可以传入一个配置对象
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
-
+import { defineComponent, ref } from "vue";
+// 引入子级组件Child
+import Child from "./components/Child.vue";
 export default defineComponent({
-  // 当前组件的名字是App
-  name: 'App',
+  name: "App",
   // 注册组件
   components: {
-    // 注册一个子级组件
-    HelloWorld
-  }
+    Child,
+  },
+
+  setup() {
+    // 定义一个Ref类型的数据
+    const msg = ref("what are you no sha lei");
+    return {
+      msg,
+    };
+  },
 });
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
